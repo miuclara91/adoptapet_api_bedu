@@ -13,13 +13,12 @@
 module.exports = Solicitud; */
 
 const mongoose = require("mongoose");
-const Usuario = mongoose.model("Usuario");
 
 const SolicitudSchema = new mongoose.Schema({
   idMascota : {type: mongoose.Schema.Types.ObjectId, ref: "Mascota", required: true},
   fechaDeCreacion: Date,
-  idUsuarioAnunciante: {type: mongoose.Schema.Types.ObjectId, ref: Usuario, required: true},
-  idUsuarioSolicitante: {tyep: mongoose.Schema.Types.ObjectId, ref: Usuario, required: true},
+  idUsuarioAnunciante: {type: mongoose.Schema.Types.ObjectId, ref: "Usuario", required: true},
+  idUsuarioSolicitante: {type: mongoose.Schema.Types.ObjectId, ref: "Usuario", required: true},
   estado: {type: String, enum: ["Aceptada", "Rechazada", "Pendiente"]}
 }, {timestamps: true, collection: "solicitudes"});
 
