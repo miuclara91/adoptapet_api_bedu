@@ -18,6 +18,9 @@ function crearUsuario(req, res, next) {
   const usuario = new Usuario(body);
 
   usuario.crearPassword(password);
+
+  console.log("Aquí estoy...");
+
   usuario.save()
     .then(user => res.status(200).json(user.toAuthJSON()))
     .catch(next);
