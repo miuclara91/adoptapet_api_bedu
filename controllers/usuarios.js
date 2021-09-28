@@ -9,13 +9,15 @@ const Usuario = mongoose.model("Usuario");
 const passport = require('passport');
 
 // C => CREATE
-function crearUsuario(req, res) {
+function crearUsuario(req, res, next) {
   const body = req.body;
   const password = body.password;
 
   delete body.password;
   // Instanciaremos un nuevo usuario utilizando la clase usuario
   const usuario = new Usuario(body);
+
+  usuario.crearPassword(password);
   usuario.save()
     .then(user => res.status(200).json(user.toAuthJSON()))
     .catch(next);
@@ -106,7 +108,7 @@ function modificarUsuario(req, res, next) {
     user.crearPassword(nuevaInfo.password);
   }
    user.save()
-   .then(updated => {res.status(200).json(updated.publicData())})
+   .then(updated => {res.status(201).json(updated.publicData())})
    .catch(next)
  })
  .catch(next)
@@ -120,7 +122,7 @@ function eliminarUsuario(req, res, next) {
 
   Usuario.findOneAndDelete({_id: req.usuario.id})
   .then(r => {res.status(200).send("El usuario ha sido eliminado.")})
-  .catch(next)
+  .catch(next);
 }
 
 // LOGIN
@@ -145,5 +147,6 @@ module.exports = {
   crearUsuario,
   obtenerUsuarios,
   modificarUsuario,
-  eliminarUsuario
+  eliminarUsuario,
+  iniciarSesion
 }

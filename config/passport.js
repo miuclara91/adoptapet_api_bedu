@@ -5,10 +5,8 @@ const passport = require('passport');
   Éste archivo nos servirá ya que configuraremos lo necesario para que Passport funcione
 */
 //Importando estrategia autenticación. --> passport-local
-const passport = require('passport');
-
 /* LocalStrategy es una estrategia de autenticación */
-const LocalStrategy = passport.Strategy; 
+const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
 const Usuario = mongoose.model('Usuario');
 
